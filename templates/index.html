@@ -2,19 +2,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Flask: HomeWoL</title>
-  <link rel="stylesheet" href="{{ url_for('static',
-    filename='css/template.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js')}}"></script>
 </head>
-<body>
+<body onload="init()">
 <h1>homeWol</h1>
-<form action="/", method="post" id="form_1">  		
-  {% for host, address, status, mac in machines %}
-  <div class="horizontal">
-    <p>{{ host }}:</p>
-    <p>{{ status }}</p>
-    <button value="{{ mac }}" name="mac">Wake</button>
-  </div>
-  {% endfor %}
-</form>
+{% for host, address, mac in machines %}
+<div class="horizontal" id="{{ host }}">
+  <p>{{ host }}:</p>
+  <p class="status" id="{{ address }}">unknown</p>
+  <button id="{{ mac }}" onclick="wake(this)">Wake</button>
+</div>
+{% endfor %}
 </body>
-</html
+</html>
